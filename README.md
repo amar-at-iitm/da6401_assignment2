@@ -24,6 +24,8 @@
 - Unzips the downloaded file
 - Renames the original val/ folder to test/
 - Creates a new `val` folder containing 20% of images randomly moved from the `train` folder.
+- Resizes all the images in each folder to 256*256
+- Deletes unnecessary files( if exist) to avoid errors while training, validation and testing
 
 #### Dataset Structure After Processing
 ```
