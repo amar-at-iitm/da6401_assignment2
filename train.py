@@ -41,14 +41,14 @@ def train():
     # Transforms
     train_tf, val_tf = get_transforms(config.augmentation)
 
-    # Load datasets
+    # Loading datasets
     train_data = datasets.ImageFolder("inaturalist_12K/train", transform=train_tf)
     val_data = datasets.ImageFolder("inaturalist_12K/val", transform=val_tf)
 
     train_loader = DataLoader(train_data, batch_size=config.batch_size, shuffle=True, num_workers=2)
     val_loader = DataLoader(val_data, batch_size=config.batch_size, shuffle=False, num_workers=2)
 
-    # Prepare model
+    # Preparing model
     filters = config.filters_per_layer
     model = CNNModel(
         filters=filters,
@@ -66,6 +66,8 @@ def train():
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
 
+    # To track best validation accuracy
+    best_val_acc = 0.0
 
     # Training loop
     for epoch in range(config.epochs):
@@ -118,7 +120,13 @@ def train():
             "val_acc": val_acc
         })
 
-
+        # Saving model if it's the best so far
+        if val_acc > best_val_acc:
+            best_val_acc = val_acc
+            torch.save(model.state_dict(), "best_model.pth")
+            #torch.save(model.state_dict(), "/kaggle/outputs/best_model.pth")
+            print(f"Model saved with validation accuracy: {best_val_acc:.4f}")
+        
     print("Training run complete.")
 
 # Run wandb agent with sweep
