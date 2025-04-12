@@ -6,6 +6,7 @@ from torch import nn, optim
 from torch.utils.data import DataLoader
 from torchvision import transforms, datasets
 from tqdm import tqdm
+import os
 from model import CNNModel  # Importing model from Question 1
 from sweep_config import sweep_config
 
@@ -120,13 +121,26 @@ def train():
             "val_acc": val_acc
         })
 
-        # Saving model if it's the best so far
-        if val_acc > best_val_acc:
-            best_val_acc = val_acc
-            torch.save(model.state_dict(), "best_model.pth")
-            #torch.save(model.state_dict(), "/kaggle/outputs/best_model.pth")
-            print(f"Model saved with validation accuracy: {best_val_acc:.4f}")
-        
+    # Saving model if it's the best across all sweeps
+    global_best_path = "best_accuracy.txt"
+    current_best = 0.0
+    
+    # Readinf global best accuracy if file exists
+    if os.path.exists(global_best_path):
+        with open(global_best_path, "r") as f:
+            try:
+                current_best = float(f.read().strip())
+            except:
+                current_best = 0.0
+    
+    # Saving model only if it's better than global best
+    if val_acc > current_best:
+        torch.save(model.state_dict(), "best_model.pth")
+        with open(global_best_path, "w") as f:
+            f.write(str(val_acc))
+        print(f"New global best model saved with val_acc: {val_acc:.4f}")
+
+      
     print("Training run complete.")
 
 # Run wandb agent with sweep
