@@ -26,6 +26,11 @@
 ├── README.md                     # Root README with project overview
 ├── datapreparation.py            # Downloads and prepares the data
 
+└── inaturalist_12K/              # Dataset folder (train, val, test)
+    ├── train/
+    ├── val/
+    └── test/
+
 ├── partA/                        # Part A: CNN trained from scratch
 │   ├── model.py                  # Custom CNN model with 5 conv layers
 │   ├── train.py                  # Training with wandb sweeps
@@ -43,10 +48,6 @@
 │   ├── best_accuracy_B.txt       # Validation accuracy of best model
 │   └── README.md                 # README for Part B (fine-tuning overview)
 
-└── inaturalist_12K/              # Dataset folder (train, val, test)
-    ├── train/
-    ├── val/
-    └── test/
 ```
 ### `data_preparation.py`
 - Downloads the Nature 12K dataset
