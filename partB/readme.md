@@ -21,8 +21,12 @@ partB/
 ├── best_accuracy_B.txt        # Stores the highest validation accuracy across runs
 └── README.md                  # This file
 ```
-
-## How to Run
+####  Setup
+ Change the direcotry:
+   ```bash
+   cd partB
+   ```
+#### Run the Script
 
 ```bash
 python finetune_model.py
