@@ -47,7 +47,25 @@
     ├── train/
     ├── val/
     └── test/
-
+```
+### `data_preparation.py`
+- Downloads the Nature 12K dataset
+- Unzips the downloaded file
+- Renames the original val/ folder to test/
+- Creates a new `val` folder containing 20% of images randomly moved from the `train` folder.
+- Resizes all the images in each folder to 256*256
+- Deletes unnecessary files( if exist) to avoid errors while training, validation and testing
+#### Run the Script:
+   ```bash
+   python data_preparation.py
+   ```
+#### Dataset Structure After Processing
+```
+.
+inaturalist_12K/
+├── train/    # Currently, 80% of original 
+├── val/      # 20% split from train
+└── test/     # originally 'val/'
 ```
 ---
 ## [Part A: Training from scratch](https://github.com/amar-at-iitm/da6401_assignment2/tree/main/partA) 
@@ -69,7 +87,7 @@ CNN based image classifiers using a subset of the iNaturalist dataset.
 - Report test accuracy
 - Show results in a creative 10×3 prediction grid.
 ---
-## [Part B : Fine-tuning a pre-trained model](https://github.com/amar-at-iitm/da6401_assignment2/tree/main/partB)
+## [Part B: Fine-tuning a pre-trained model](https://github.com/amar-at-iitm/da6401_assignment2/tree/main/partB)
 Unlike Part A, where I trained a CNN from scratch, this section explores how leveraging pre-trained models can improve performance and reduce training time.
 
 Key highlights:
@@ -85,10 +103,3 @@ Key highlights:
 - Evaluated final model on unseen test data, with predictions logged to wandb
 
 Best results were achieved by fine-tuning the entire network (freeze_strategy = "all"), confirming the power of transfer learning with high-quality pretrained features.
-
---- 
-## Author
-**Name:** *Amar Kumar*  
-**Course:** *DA6401 - Deep Learning*  
-**Institute:** *IIT Madras*
-
