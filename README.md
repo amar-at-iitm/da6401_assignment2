@@ -96,11 +96,11 @@ Key highlights:
 - Resized dataset images to 224×224 to match ImageNet input requirements
 - Replaced the final classifier layer to output 10 classes
 - Implemented three fine-tuning strategies:
-   - only_fc: train only the final fully connected layer
-   - partial: unfreeze the last few layers
-   - all: train the entire network
+   - **only_fc**: train only the final fully connected layer
+   - **partial**: unfreeze the last few layers
+   - **all**: train the entire network
 - Performed a wandb sweep to find the best strategy and hyperparameters
 - Saved the best model across all sweep runs based on validation accuracy
 - Evaluated final model on unseen test data, with predictions logged to wandb
 
-Best results were achieved by fine-tuning the entire network (freeze_strategy = "all"), confirming the power of transfer learning with high-quality pretrained features.
+Best results were achieved by fine-tuning the entire network **(freeze_strategy = "all")**, confirming the power of transfer learning with high-quality pretrained features.
