@@ -1,20 +1,9 @@
 # Part A: Training from scratch
-### `data_preparation.py`
-- Downloads the Nature 12K dataset
-- Unzips the downloaded file
-- Renames the original val/ folder to test/
-- Creates a new `val` folder containing 20% of images randomly moved from the `train` folder.
-- Resizes all the images in each folder to 256*256
-- Deletes unnecessary files( if exist) to avoid errors while training, validation and testing
-
-#### Dataset Structure After Processing
-```
-.
-inaturalist_12K/
-├── train/    # Currently, 80% of original 
-├── val/      # 20% split from train
-└── test/     # originally 'val/'
-```
+####  Setup
+ Change the direcotry:
+   ```bash
+   cd partA
+   ```
 ### `model.py`
 The model is designed for multi-class image classification tasks and is tailored to work with the iNaturalist dataset (10 classes). It provides flexibility regarding layer configuration, activation functions, and regularization techniques.
 - Modular CNN architecture with 5 convolutional blocks
@@ -33,7 +22,6 @@ The sweep helps in identifying the best-performing combination of model architec
 | `metric.name`    | The metric used to evaluate performance. Set to `"val_acc"` (validation accuracy). |
 | `metric.goal`    | Objective of the sweep. Set to `"maximize"` to find configurations that yield the highest accuracy. |
 
----
 
 #### Tunable Hyperparameters
 
@@ -50,6 +38,10 @@ The sweep helps in identifying the best-performing combination of model architec
 | `epochs`            | int         | Number of epochs to train the model. Options: `20`, `15`, `10`.               |
 
 ### `train.py`
+- Run the Script:
+   ```bash
+   python train.py
+   ```
 This script trains a configurable Convolutional Neural Network (CNN) on the iNaturalist 12K dataset using PyTorch. It integrates Weights & Biases (wandb) for experiment tracking and supports sweep-based hyperparameter tuning. It also saves the best-performing model based on validation accuracy.
 - Leverages the modular CNN model from `Question 1: model.py`
 - Uses wandb sweeps to perform hyperparameter optimization
@@ -58,6 +50,10 @@ This script trains a configurable Convolutional Neural Network (CNN) on the iNat
 - Saves the best model (based on validation accuracy) to `best_model.pth`
 
 ### `test_model.py`
+- Run the Script:
+   ```bash
+   python test_model.py
+   ```
 The `test_model.py` script is used to evaluate the performance of the best-trained CNN model on the **test split** of the iNaturalist_12K dataset. This script also logs final metrics and predictions to **Weights & Biases (wandb)** for visualization and reporting.
 
 
